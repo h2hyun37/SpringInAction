@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util">
+
+	<bean id="knight" class="com.h2hyun37.knight.impl.BraveKnight">
+		<constructor-arg ref="quest" />
+	</bean>
+
+	<bean id="quest" class="com.h2hyun37.knight.impl.SlayDragonQuest" />
+
+	<bean id="minstrel" class="com.h2hyun37.knight.impl.MinstrelImpl" />
+
+	<!-- 트랜젝션  설정 추가 -->
+<!-- 	<aop:config>
+		<aop:pointcut id="requiredTx" expression="execution(* com.skt.tid.auth.openid..service..*.*(..))"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="requiredTx" />
+	</aop:config>
+ -->
+
+	<!-- AOP -->
+	<aop:config>
+		<aop:aspect ref="minstrel">
+			<aop:pointcut id="embark" expression="execution(* com.h2hyun37..*.embarkOnQuest(..))" />
+<!-- 아래 AOP 설정이 뭔가 동작하지 않아서 일단 주석처리 -->
+<!--  		<aop:before pointcut-ref="embark" method="singBeforeQuest" />  -->
+<!-- 		<aop:after pointcut-ref="embark" method="singAfterQuest" />  -->
+ 		</aop:aspect>
+	</aop:config>
+
+</beans>
